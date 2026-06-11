@@ -16,7 +16,23 @@
                 <button id="rename-session-btn" class="action-btn-sm">✏️</button>
             </div>
         </div>
-        <button id="settings-btn" class="icon-btn">⚙️ Settings Menu</button>
+        
+        <div class="auth-wrapper">
+            <div id="auth-logged-out">
+                <button id="login-btn" class="google-login-btn">
+                    <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/copy_of_googleg_standard_color_24dp.png" alt="Google Logo">
+                    <span>Sync with Google</span>
+                </button>
+            </div>
+            <div id="auth-logged-in" class="user-profile-card hidden">
+                <img id="user-avatar" src="" alt="User Avatar" class="user-avatar">
+                <div class="user-info">
+                    <span id="user-name" class="user-name">Anonymous</span>
+                    <button id="logout-btn" class="logout-link">Sign Out</button>
+                </div>
+            </div>
+            <button id="settings-btn" class="icon-btn">⚙️ Settings Menu</button>
+        </div>
     </div>
 
     <div class="app-container">
@@ -135,7 +151,7 @@
 
                     <div class="import-zone">
                         <label class="file-input-wrapper">
-                            📥 Import External Backup (JSON / CSV)
+                            📥 Import External Backup (csTimer JSON or CubeDesk CSV)
                             <input type="file" id="import-file-input" accept=".json,.csv">
                         </label>
                     </div>
@@ -144,6 +160,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
