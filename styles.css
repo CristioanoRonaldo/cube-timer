@@ -1,0 +1,156 @@
+:root {
+    --bg-main: #0f111a;
+    --bg-card: #151824;
+    --accent: #3b82f6;
+    --accent-ready: #10b981;
+    --text-primary: #f3f4f6;
+    --text-muted: #6b7280;
+    --border: #24293e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Scramble & Visualizer layout */
+.scramble-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.scramble-text {
+    font-size: 1.35rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    line-height: 1.6;
+    max-width: 80%;
+}
+
+/* Central Focus Timer Display */
+.timer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 0;
+}
+
+.timer-display {
+    font-size: 6.5rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    transition: color 0.15s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.timer-display.ready { color: var(--accent-ready); }
+.timer-display.running { color: var(--text-primary); }
+
+.phase-display {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.live-splits {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    background: var(--bg-card);
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+}
+
+.split-row {
+    font-size: 0.95rem;
+}
+.split-label { color: var(--text-muted); margin-right: 0.25rem; }
+
+/* Bottom Dash Layout */
+.dashboard-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-footer { grid-template-columns: 1fr; }
+}
+
+.stats-panel, .history-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--bg-main);
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.stat-card .label { font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;}
+.stat-card .val { font-size: 1.4rem; font-weight: 600; }
+
+.history-list {
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-main);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}

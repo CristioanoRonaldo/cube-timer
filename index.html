@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusTimer - Premium Speedcubing Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="scramble-section">
+            <div id="scramble-text" class="scramble-text">Generating scramble...</div>
+            <div class="preview-container">
+                <canvas id="cube-preview" width="240" height="180"></canvas>
+            </div>
+        </header>
+
+        <main class="timer-section">
+            <div id="timer-display" class="timer-display">00.00</div>
+            <div id="phase-display" class="phase-display">Press Space to Start (Cross)</div>
+            
+            <div class="live-splits" id="live-splits">
+                <div class="split-row"><span class="split-label">Cross:</span> <span id="split-cross">--.--</span></div>
+                <div class="split-row"><span class="split-label">F2L:</span> <span id="split-f2l">--.--</span></div>
+                <div class="split-row"><span class="split-label">OLL:</span> <span id="split-oll">--.--</span></div>
+                <div class="split-row"><span class="split-label">PLL:</span> <span id="split-pll">--.--</span></div>
+            </div>
+        </main>
+
+        <section class="dashboard-footer">
+            <div class="stats-panel">
+                <h3>Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card"><span class="label">Single</span><span id="stat-single" class="val">-</span></div>
+                    <div class="stat-card"><span class="label">Ao5</span><span id="stat-ao5" class="val">-</span></div>
+                    <div class="stat-card"><span class="label">Ao12</span><span id="stat-ao12" class="val">-</span></div>
+                </div>
+            </div>
+
+            <div class="history-panel">
+                <h3>Session History</h3>
+                <div class="history-list" id="history-list">
+                    </div>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
