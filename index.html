@@ -3,13 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusTimer - Premium Speedcubing Dashboard</title>
+    <title>NexusTimer Pro - Ultimate Speedcubing Suite</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="theme-dark">
+    <div class="control-bar">
+        <div class="brand-group">
+            <div class="logo">NexusTimer <span class="badge">Pro</span></div>
+            <div class="session-controller">
+                <select id="session-select"></select>
+                <button id="new-session-btn" class="action-btn-sm">+ New</button>
+                <button id="rename-session-btn" class="action-btn-sm">✏️</button>
+            </div>
+        </div>
+        <button id="settings-btn" class="icon-btn">⚙️ Settings Menu</button>
+    </div>
+
     <div class="app-container">
         <header class="scramble-section">
-            <div id="scramble-text" class="scramble-text">Generating scramble...</div>
+            <div class="scramble-controls">
+                <select id="scramble-type-select">
+                    <optgroup label="WCA Puzzles">
+                        <option value="3x3">3x3x3 Cube</option>
+                        <option value="2x2">2x2x2 Cube</option>
+                        <option value="4x4">4x4x4 Cube</option>
+                        <option value="5x5">5x5x5 Cube</option>
+                        <option value="Pyraminx">Pyraminx</option>
+                        <option value="Skewb">Skewb</option>
+                        <option value="Megaminx">Megaminx</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div id="scramble-text" class="scramble-text">Generating optimal state path...</div>
             <div class="preview-container">
                 <canvas id="cube-preview" width="240" height="180"></canvas>
             </div>
@@ -17,8 +42,15 @@
 
         <main class="timer-section">
             <div id="timer-display" class="timer-display">00.00</div>
-            <div id="phase-display" class="phase-display">Press Space to Start (Cross)</div>
+            <div id="phase-display" class="phase-display">READY TO SOLVE</div>
             
+            <div class="penalty-row">
+                <button id="penalty-none-btn" class="p-btn active">Regular</button>
+                <button id="penalty-plus2-btn" class="p-btn">+2</button>
+                <button id="penalty-dnf-btn" class="p-btn">DNF</button>
+                <button id="delete-last-btn" class="p-btn danger">Delete</button>
+            </div>
+
             <div class="live-splits" id="live-splits">
                 <div class="split-row"><span class="split-label">Cross:</span> <span id="split-cross">--.--</span></div>
                 <div class="split-row"><span class="split-label">F2L:</span> <span id="split-f2l">--.--</span></div>
@@ -29,21 +61,89 @@
 
         <section class="dashboard-footer">
             <div class="stats-panel">
-                <h3>Statistics</h3>
+                <h3>Session Analytics</h3>
                 <div class="stats-grid">
-                    <div class="stat-card"><span class="label">Single</span><span id="stat-single" class="val">-</span></div>
-                    <div class="stat-card"><span class="label">Ao5</span><span id="stat-ao5" class="val">-</span></div>
-                    <div class="stat-card"><span class="label">Ao12</span><span id="stat-ao12" class="val">-</span></div>
+                    <div class="stat-card"><span class="label">Current Single</span><span id="stat-single" class="val">-</span></div>
+                    <div class="stat-card"><span class="label">Best Single</span><span id="stat-best" class="val">-</span></div>
+                    <div class="stat-card"><span class="label">Current Ao5</span><span id="stat-ao5" class="val">-</span></div>
+                    <div class="stat-card"><span class="label">Current Ao12</span><span id="stat-ao12" class="val">-</span></div>
+                    <div class="stat-card"><span class="label">Current Ao50</span><span id="stat-ao50" class="val">-</span></div>
+                    <div class="stat-card"><span class="label">Current Ao100</span><span id="stat-ao100" class="val">-</span></div>
                 </div>
+                <button id="clear-session-btn" class="danger-btn">Purge Active Session</button>
             </div>
 
             <div class="history-panel">
-                <h3>Session History</h3>
-                <div class="history-list" id="history-list">
-                    </div>
+                <h3>Solve Ledger</h3>
+                <div class="history-list" id="history-list"></div>
             </div>
         </section>
     </div>
+
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Configuration Engine</h2>
+                <button id="close-modal-btn" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-row">
+                    <label>Color Theme</label>
+                    <select id="setting-theme">
+                        <option value="theme-dark">Material Dark</option>
+                        <option value="theme-light">Clean Light</option>
+                        <option value="theme-oled">OLED Deep Black</option>
+                        <option value="theme-matrix">Matrix Terminal</option>
+                    </select>
+                </div>
+
+                <div class="setting-row">
+                    <label>WCA 15s Inspection</label>
+                    <select id="setting-inspection">
+                        <option value="off">Disabled</option>
+                        <option value="on">Enabled</option>
+                    </select>
+                </div>
+
+                <div class="setting-row">
+                    <label>UI Scale Matrix</label>
+                    <select id="setting-zoom">
+                        <option value="0.85">85% (Compact)</option>
+                        <option value="1.0">100% (Default)</option>
+                        <option value="1.15">115% (Large)</option>
+                    </select>
+                </div>
+
+                <div class="setting-row">
+                    <label>In-Solve Display</label>
+                    <select id="setting-timer-update">
+                        <option value="realtime">Show Running Clock</option>
+                        <option value="hidden">Hide Running Clock (Optimal)</option>
+                    </select>
+                </div>
+
+                <hr class="modal-divider">
+
+                <div class="io-hub">
+                    <h3>Data Portability Hub</h3>
+                    <p class="io-caption">Migrate historical parameters seamlessly across platforms.</p>
+                    
+                    <div class="io-actions-grid">
+                        <button id="export-native-btn" class="io-btn">Export Native JSON</button>
+                        <button id="export-cstimer-btn" class="io-btn">Export csTimer Format</button>
+                    </div>
+
+                    <div class="import-zone">
+                        <label class="file-input-wrapper">
+                            📥 Import External Backup (JSON / CSV)
+                            <input type="file" id="import-file-input" accept=".json,.csv">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
